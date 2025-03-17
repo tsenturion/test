@@ -11,7 +11,7 @@ function add(a, b) {
 
 
 
-//jest 
+//jest - для тестирования функция, react-компоненотов и других частей
 //matchars - утверждения 
 /*
 .tobe() - для примитивных типов данных
@@ -68,3 +68,86 @@ test('expect a function to throw an error', () => {
         throw new Error('An error occurred!');
     }).toThrow('An error occurred!');
 });
+
+/*
+describe() - группировка
+it() - отдельный тест внутри describe
+*/
+
+describe('функция сложения', () => {
+    it("должна возвращать сумму двух положительных чисел", () => {
+        expect(add(2, 2)).toBe(4);
+    });
+
+    it("должна возвращать сумму одного положительного и одного отрицательного числа", () => {
+        expect(add(2, -2)).toBe(0);
+    });
+
+    it("должна возвращать сумму двух отрицательных чисел", () => {
+        expect(add(-2, -2)).toBe(-4);
+    });
+});
+
+//мокинг - изоляция кода от внешних зависимостей 
+//jest.fn() - запоминаем вызовы, аргументы
+
+const mockCallback = jest.fn();
+
+[1, 2, 3].forEach(mockCallback)
+expect(mockCallback.mock.calls.length).toBe(3);
+
+
+//jest.mock() мокинг модулей
+
+jest.mock('/math.js');
+
+//jest.spyOn() 
+//mockImplementation()
+
+const Math = require('/math.js');
+
+Math.add.mockImplementation((a, b) => a + b + 3);
+
+expect(Math.add(2, 2)).toBe(7);
+//mockReturnValue()
+
+Math.add.mockReturnValue(10);
+
+expect(Math.add(2, 2)).toBe(10);
+
+// //jest.resetAllMocks() - сбрасывает все моки
+
+// Math.add.mockReset();
+
+// expect(Math.add(2, 2)).toBe(4);
+
+// //jest.clearAllMocks() - очищает вызовы моков
+
+// Math.add.mockClear();
+
+// expect(Math.add.mock.calls.length).toBe(0);
+
+//покрытие тестами - метрика охвата тестами
+// покрытие кода = (кол-во выполненных строк/общее кол-во строк) * 100%
+/*
+покрытие строк,
+покрытие утверждений,
+покрытие проверок,
+покрытие замыканий,
+покрытие генераторов,
+покрытие try/catch,
+покрытие функций,
+покрытие объектов,
+покрытие массивов,
+покрытие ключевых слов,
+покрытие статических методов,
+покрытие модулей,
+покрытие компонентов,
+покрытие компаний,
+покрытие событий,
+покрытие асинхронных функций,
+*/
+// покрытие требований 
+
+
+

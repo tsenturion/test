@@ -1,3 +1,7 @@
+function add(a, b) {
+    return a + b;
+}
+
 test("my first test", () => {
     expect(Math.max(1, 5, 10)).toBe(10);
 });
@@ -31,3 +35,28 @@ test('expect a function to throw an error', () => {
         throw new Error('An error occurred!');
     }).toThrow('An error occurred!');
 });
+
+describe('функция сложения', () => {
+    it("должна возвращать сумму двух положительных чисел", () => {
+        expect(add(2, 2)).toBe(4);
+    });
+
+    it("должна возвращать сумму одного положительного и одного отрицательного числа", () => {
+        expect(add(2, -2)).toBe(0);
+    });
+
+    it("должна возвращать сумму двух отрицательных чисел", () => {
+        expect(add(-2, -2)).toBe(-4);
+    });
+});
+
+
+const mockCallback = jest.fn();
+
+[1, 2, 3].forEach(mockCallback)
+
+test('mockCallback', () => {
+    expect(mockCallback.mock.calls.length).toBe(3);
+});
+
+
