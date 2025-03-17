@@ -1,5 +1,5 @@
-import { add } from './math'
-import { doAdd } from './math'
+import { add } from '../math'
+import { doAdd } from '../math'
 
 jest.mock('./math')
 

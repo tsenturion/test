@@ -1,5 +1,5 @@
 
-const { add } = require('./myAdd');
+const { add } = require('../myAdd');
 
 describe('add function', () => {
 
