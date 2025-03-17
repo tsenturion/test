@@ -8,4 +8,4 @@ test('doAdd вызывает add с правильными аргументам�
     const result = adAdd(2, 3);
     expect(add).toHaveBeenCalledWith(2, 3);
     expect(result).toBe(42);
-})
+});
