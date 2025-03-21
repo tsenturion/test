@@ -1,22 +1,4 @@
-"""
-форматирование
-Именованные аргументы
-
-модули
-создание пакетов
-Модуль random. 
-кортежи
-
-ссылки
-множества
-стек
-очередь
-deque
-Деструктуризация и оператор упаковки
-Создание новых списков и оператор распаковки
-
-
-Детерминированность. 
+"""Детерминированность. 
 Стандартная библиотека. 
 Свойства и методы. 
 Цепочка методов. 
@@ -878,3 +860,104 @@ print(d)  # deque([2, 3, 4], maxlen=3)
 # Добавляем несколько элементов
 d.extend([5, 6])  # Элементы 2 и 3 удаляются
 print(d)  # deque([4, 5, 6], maxlen=3)
+
+#Деструктуризация и оператор упаковки
+#деструктуризация - разложение коллекции на отдельные элементы
+
+numbers = [1, 2, 3]
+
+# Первый способ
+
+a, b, c = numbers
+print(a, b, c)  # 1 2 3
+
+nested_list = [1, [2, 3]]
+a, [b, c] = nested_list
+print(a, b, c)
+# Второй способ
+
+a, *b, c = numbers
+print(a, b, c)  # 1 [2, 3]
+
+# Оператор упаковки */**- создание коллекции из отдельных элементов
+#*
+"""
+для упаковки позиционных аргументов в список
+например собрать оставшиеся элементы в список"""
+
+def my_function(a, b, *args):
+    print(a, b, args)
+
+my_function(1, 2, 3, 4, 5)  # 1 2 (3, 4, 5)
+
+fruits = ['apple', 'orange', 'banana']
+first, *rest = fruits
+print(first)
+print(rest)
+
+# *args позволяет передать любое количество позиционных аргументов в функцию
+#**
+
+"""
+для упаковки именнованных/словарных аргументов в словарь
+например собрать оставшиеся элементы в словарь
+например для деструктуризации словарей"""
+
+def my_function(**kwargs):
+    print(kwargs)
+
+my_function(a=1, b=2, c=3)  # {'a': 1, 'b': 2, 'c': 3}
+
+# **kwargs позволяет передать любое количество именнованных/словарных аргументов в функцию
+person = {"name":" john", 'age': 30}
+name, age = person.values()
+print(name, age)
+
+name, age = person['name'], person['age']
+
+print(name, age)
+
+def greet(name, age, *hobbies):
+    print(f"Hello, {name}! You are {age} years old.")
+    print("Your hobbies are:")
+    for hobby in hobbies:
+        print(hobby)
+
+greet("John", 30, "reading", "painting")
+
+points = [
+    [4, 3],
+    [0, -3]
+]
+
+for x, y in points:
+    print(f"({x}, {y})")
+
+#Создание новых списков и оператор распаковки
+
+list1 = [1, 2, 3]
+list2 = [4, 5, 6]
+
+# Создание нового списка из двух исходных
+
+new_list = list1 + list2
+print(new_list)
+
+# Оператор распаковки
+
+list1, list2 = new_list
+print(list1)
+print(list2)
+
+# Путем объединения нескольких списков с оператором распаковки
+
+list3 = list1 + [7, 8, 9]
+list4 = [10, 11, 12]
+new_list = list3 + list4
+list1, list2, *list3_and_list4 = new_list
+print(list1)
+
+list3 = [*list1, *list2]
+
+print(list3)
+#* - оператор распаковки
