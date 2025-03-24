@@ -1,12 +1,5 @@
-"""Детерминированность. 
-Стандартная библиотека. 
-Свойства и методы. 
-Цепочка методов. 
-Определение функций. 
-Возврат значений. 
-Параметры функций. 
-Необязательные параметры функций.
-Именованные аргументы. 
+"""
+Детерминированность. 
 Агрегация данных
 
 
@@ -943,21 +936,106 @@ list2 = [4, 5, 6]
 new_list = list1 + list2
 print(new_list)
 
-# Оператор распаковки
 
-list1, list2 = new_list
-print(list1)
-print(list2)
-
-# Путем объединения нескольких списков с оператором распаковки
-
-list3 = list1 + [7, 8, 9]
-list4 = [10, 11, 12]
-new_list = list3 + list4
-list1, list2, *list3_and_list4 = new_list
-print(list1)
 
 list3 = [*list1, *list2]
 
 print(list3)
-#* - оператор распаковки
+
+import json
+dict1 = {'name': 'alice', 'city': 'new york'}
+print(type(dict1))
+
+set1 = set()
+zero_dict = {}
+zero_dict['age'] = 30
+zero_dict['name'] = 'bob'
+
+dict1 = dict(name='bob', age=30)
+
+
+# ----------------------------------------------------------------
+num = 42
+hash_value = hash(num)
+print(hash_value)
+
+"""my_list = [1, 2, 3, 4]
+hash_value = hash(my_list)
+print(hash_value)"""
+
+str1 = '123'
+hash_value = hash(str1)
+print(hash_value)
+
+my_list = [1, 2, 3, 4]
+hash_value = hash(tuple(my_list))
+print(hash_value)
+# ----------------------------------------------------------------
+
+print(zero_dict['age'])
+print(zero_dict.get('name', None))
+zero_dict['age'] = 31
+del zero_dict['name']
+print(zero_dict)
+for key, value in zero_dict.items():
+    print(f'{key}: {value}')
+
+"""
+keys() - список ключей
+values() - значений
+items() - пары
+del удаление
+pop(key, default) удаление и возвр значения
+
+get(key, default) возвр значение по ключу и default если ключ отсутствует
+popitem() удаляет и возвр последнюю добавл пару
+
+clear()
+copy()
+"""
+#defaultdict 
+from collections import defaultdict
+
+counts = defaultdict(int)
+
+counts['apple'] += 1
+counts['orange'] += 1
+counts['banana'] += 1
+
+print(counts)
+
+items = ['apple', 'apple', 'apple', 'banana']
+counts = defaultdict(int)
+
+for item in items:
+    counts[item] += 1
+
+print(counts)
+
+# ----------------------------------------------------------------
+data = [('1', '2'), ('1', '3'), ('1', '4'), ('2', '1')]
+
+grouped = defaultdict(int)
+
+for key, value in data:
+    grouped[key] += int(value)
+
+print(grouped)
+# ----------------------------------------------------------------
+def default_value():
+    return "unknown"
+
+info = defaultdict(default_value)
+info['name'] = 'alice'
+info['age'] = 30
+
+print(info['name'])
+
+print(info['city'])
+
+items_count = {}
+for item in items:
+    if item in items_count:
+        items_count[item] += 1
+    else:
+        items_count[item] = 1
