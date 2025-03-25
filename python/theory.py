@@ -1,14 +1,9 @@
 """
+Итераторы.
+
 Детерминированность. 
 Агрегация данных
-
-
-Концепция списков.
-Создание списков и добавление элементов.
 Ссылки. Ссылки и изменяемость. 
-Модификация списков поэлементно. 
-Срезы. 
-Итераторы.
 Работа с REPL. 
 Модули distutils, Setuptools, pip. 
 Установка pip.
@@ -1039,3 +1034,73 @@ for item in items:
         items_count[item] += 1
     else:
         items_count[item] = 1
+
+    
+#итераторы
+"""
+__iter__()
+__next__()
+StopIteration
+
+iter()
+next(iterator, default=None)
+"""
+numbers = [1, 2, 3]
+i = iter(numbers)
+
+while True:
+    try:
+        print(next(i))
+    except StopIteration:
+        break
+
+def even_numbers(max_num):
+    num = 0
+    while num <= max_num:
+        yield num
+        num += 2
+
+for num in even_numbers(10):
+    print(num)
+
+
+def cube_generator(n):
+    for i in range(1, n + 1):
+        yield i ** 3
+
+for cube in cube_generator(5):
+    print(cube)
+
+cubes = [i ** 3 for i in range(1, 6)]
+for cube in cubes:
+    print(cube)
+
+
+list1 = [i for i in range(5)]
+print(list1)
+
+list1 = []
+for i in range(5):
+    list1.append(i)
+print(list1)
+
+list2 = [i ** 2 for i in range(5)]
+list3 = [i if i % 2 == 0 else None for i in range(5)]
+print(list3)
+list4 = [i for i in range(5) if i % 2 == 0]
+print(list4)
+
+list5 = [[i * j for i in range(1, 5)] for j in range(1, 5)]
+print(list5)
+
+def my_gen():
+    yield 1
+    yield 2
+    yield 3
+
+gen = my_gen()
+
+print(next(gen))
+print(next(gen))
+print(next(gen))
+print(next(gen, None))
