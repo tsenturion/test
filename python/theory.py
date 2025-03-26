@@ -1,9 +1,7 @@
 """
-Итераторы.
-
 Детерминированность. 
 Агрегация данных
-Ссылки. Ссылки и изменяемость. 
+
 Работа с REPL. 
 Модули distutils, Setuptools, pip. 
 Установка pip.
@@ -1104,3 +1102,35 @@ print(next(gen))
 print(next(gen))
 print(next(gen))
 print(next(gen, None))
+
+#pip --version
+#pip
+#pip -V
+
+#PyPI
+
+#pip install requests
+#pip install requests==2.26.0
+#pip install requests>=2.20
+#pip install requests<3.0
+
+#pip show requests
+
+#pip uninstall requests
+#Y/n
+
+#pip install --upgrade requests
+
+#pip list --outdated
+
+#pip freeze > requirements.txt
+#pip install -r requirements.txt
+
+#git clone https://github.com/requests/requests.git
+
+#pip check
+
+#REPL
+#python -m venv myenv
+#myenv\Scripts\activate
+#deactivate

@@ -151,3 +151,38 @@ expect(Math.add(2, 2)).toBe(10);
 */
 // покрытие требований 
 
+//инверсия зависимостей
+
+class ApiService {
+    constructor() {
+        this.axios = require('axios');
+    }
+
+    async getData(url) {
+        const response = await this.axios.get(url);
+        return response.data;
+    }
+}
+
+class ApiService {
+    constructor(httpClient) {
+        this.httpClient = httpClient;
+    }
+
+    async getData(url) {
+        const response = await this.httpClient.get(url);
+        return response.data;
+    }
+}
+
+const httpClient = {
+    get: jest.fn().mockResolvedValue({ data: 'some data' }),
+};
+
+test('ApiService вызывает getData и возвращает данные', async () => {
+    const apiService = new ApiService(httpClient);
+    const data = await apiService.getData('https://api.example.com/data');
+
+    expect(httpClient.get).toHaveBeenCalledWith('https://api.example.com/data');
+    expect(data).toEqual('some data');
+});
