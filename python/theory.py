@@ -1,14 +1,4 @@
 """
-Детерминированность. 
-Агрегация данных
-
-Работа с REPL. 
-Модули distutils, Setuptools, pip. 
-Установка pip.
-Инструмент pip и альтернативные источники пакетов\.
-Виртуальные окружения. Cкрипты. 
-Запускаемые модули и пакеты. 
-Доступный инструментарий для работы с Python-проектами.
 Начало работы с Poetry. 
 Poetry и управление зависимостями.
 Poetry и скрипты. 
@@ -1131,6 +1121,107 @@ print(next(gen, None))
 #pip check
 
 #REPL
+#python
+#>>>
+#exit()
+
+#def
+#...
 #python -m venv myenv
 #myenv\Scripts\activate
 #deactivate
+
+#iPython
+
+#exit()
+#help()
+#dir(obj)
+#locals()
+#globals()
+
+
+#distutils
+#sdist
+#bdist
+
+#Setuptools
+
+
+#setuptools.setup(
+    #name='my_package',
+    #version='1.0.0',
+    #description='My package description',
+    #url='https://github.com/user/my_package',
+    #author='Author Name',
+    #author_email='author@example.com',
+    #license='MIT',
+    #packages=setuptools.find_packages(),
+    #install_requires=[
+        #'requests>=2.20',
+    #],
+    # classifiers=[
+        #'Development Status :: 3 - Alpha',
+        #'Programming Language :: Python :: 3',
+        #'Programming Language :: Python :: 3.7',
+    #],
+    #python_requires='>=3.7',
+    #entry_points={
+        #'console_scripts': [
+            #'my_script=my_package.my_script:main',
+        #],
+    #},)
+
+
+#pypi.org
+
+#Poetry
+#Poetry и управление зависимостями.
+#Poetry и скрипты. 
+#Сборка дистрибутива пакета с помощью Poetry.
+
+#poetry new my_package
+#poetry add requests
+#poetry add requests@^2.25
+#poetry add --dev pytest
+"""
+^
+~
+>=
+<
+"""
+#poetry remove requests
+#poetry shell
+#poetry run pytest
+#poetry publish --build
+#poetry update
+#poetry show --outdated
+
+#pyproject.toml
+"""
+[tool.poerty]
+name = "my_package"
+version = "1.0.0"
+description = "My package description"
+authors = [
+    {
+        "name": "Author Name",
+        "email": "author@example.com
+    }
+]
+[tool.poerty.dependencies]
+python = "^3.7"
+requests = "^2.26.0"
+
+[tool.poetry.scripts]
+my_script = "my_package.my_script:main"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.0.1"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
+"""
+
+#Poetry и управление зависимостями.
+#Poetry и скрипты
