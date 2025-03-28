@@ -1728,3 +1728,15 @@ print(info("This is an info message"))
 
 результат=(число×коэффициент)+смещение
 """
+
+def create_transformer(coefficient):
+    return lambda offset : lambda number : (number * coefficient) + offset
+
+transformer = create_transformer(2)
+
+add_3 = transformer(3)
+add_5 = transformer(5)
+
+print(add_3(10))
+
+print(add_5(10))
