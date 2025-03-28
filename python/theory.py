@@ -1413,7 +1413,29 @@ def outer():
 outer()
 
 
+# global
+global_var = 30
+def example():
+    global global_var
+    global_var += 10
+    print(global_var)
 
+example()
+print(global_var)
+
+# nonlocal
+def outer():
+    nonlocal_var = 40
+
+    def inner():
+        nonlocal nonlocal_var
+        nonlocal_var += 10
+        print(nonlocal_var)
+
+    inner()
+    print(nonlocal_var)
+
+outer()
 """
 для замыканий
 """
@@ -1639,17 +1661,17 @@ result = operation(10)(5)('adde')
 print(result)
 print(result is None)"""
 
-"""def operation(a, b, op):
+def operation(a, b, operation):
     try:
-        if op == 'add':
+        if operation == 'add':
             return a + b
-        elif op == "subtract":
+        elif operation == "subtract":
             return a - b
-        elif op == "divide":
+        elif operation == "divide":
             if b == 0:
                 raise ZeroDivisionError('123')
             return a / b
-        elif op == 'multiply':
+        elif operation == 'multiply':
             return a * b
         else:
             raise ValueError('1234')
@@ -1660,13 +1682,49 @@ print(result is None)"""
     except Exception as ex:
         return ex
 
-add = partial(operation, op='add')
-add_10 = partial(partial(operation, a=10), op='add')
-divide = partial(operation, op='divide')
-divide2 = partial(operation, op='d3ivide')
-print(add(10, 2))
+add = partial(operation, operation='add')
+my_add = partial(operation, operation='add', a=10)
+add_10 = partial(partial(operation, a=10), operation='add')
+divide = partial(operation, operation='divide')
+divide2 = partial(operation, operation='d3ivide')
+"""print(add(10, 2))
 print(add_10(b=2))
 print(divide(10, 2))
 print(divide(10, 0))
 print(divide2(10, 2))
+"""
+print(add_10(b=5))
+print(my_add(b=5))
+
+multuply = lambda x : lambda y : x * y
+double = multuply(3)
+print(double(5))
+
+curried_function = lambda x : lambda y : lambda z : x + y + z
+add_5 = curried_function(2)(3)
+print(add_5(4))
+
+
+def curried_add(x):
+    return lambda y : x + y
+
+def add(x, y):
+    return x + y
+
+add_3 = partial(add, 3)
+
+def log(level):
+    return lambda message: f"[{level.upper()}] {message}"
+
+info = log("INFO")
+error = log("ERROR")
+
+print(info("This is an info message"))
+
+"""
+Напишите каррированную функцию с lambda, которая умножает число на коэффициент и добавляет смещение
+Функция должна принимать два параметра: коэффициент и смещение
+Вернуть замыкание, которое принимает одно число и выполняет вычисление
+
+результат=(число×коэффициент)+смещение
 """
