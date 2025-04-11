@@ -1877,3 +1877,531 @@ print(p1 == Point(6, 10))
 print(p1[0])
 print(p1[1])
 p3 = Point()
+
+#императивная
+"""
+переменные, их изменение
+циклы
+условия
+функции, возвращаемые значения
+global локальная
+списки
+файлы
+обработка ошибок
+"""
+n = 10
+n = 11
+summa = 0
+
+for i in range(n):
+    summa += i
+
+print(summa)
+
+def greet(name):
+    print(f'Hello, {name}!')
+
+greet('John')
+
+#декларативная 
+"""
+описание логики(результата), а не процесса
+минимизация изменений состояния
+функции высшего порядка
+генеративные выражения
+чистые функции
+неизменяемые данные
+"""
+numbers = [1, 2, 3, 4, 5]
+squares = [x ** 2 for x in numbers]
+
+squares = list(map(lambda x: x ** 2, numbers))
+
+summa = sum([1, 2, 3, 4, 5])
+
+def add(a, b):
+    return a + b
+
+"""
+функциональная - код на чистых функциях
+логическая - логические выражения import sympy
+реактинвая - реация на события
+конкурентная - код выполняется параллельно
+автоматное программирование - FSM
+метапрограммирование - код как данные, eval(), axec() 
+Объектно-ориентированное программирование
+"""
+
+"""
+FP
+
+чистые функции
+отсутствие изменяемых данных
+функции высшего порядка
+рекурсия
+"""
+
+"""
+логическое
+"""
+from sympy import symbols, Eq, solve
+
+x = symbols("x")
+
+equation = Eq(2 * x + 3, 5)
+
+solution = solve(equation, x)
+
+print(solution)
+
+"""
+реактивная"""
+
+import asyncio
+
+async def fetch(url):
+    print(f"Fetch {url}")
+    response = await aiohttp.get(url)
+
+"""threading"""
+
+import threading
+
+def worker():
+    print("Worker started")
+    print("Worker finished")
+
+thread = threading.Thread(target=worker)
+
+thread.start()
+
+thread.join()
+
+from multiprocessing import Process
+
+def worker():
+    print("Worker started")
+    print("Worker finished")
+
+process = Process(target=worker)
+
+process.start()
+
+process.join()
+
+#автоматное программирование
+
+def traffic_light():
+    state = "red"
+
+    while True:
+        if state == "red":
+            print("Traffic light is red")
+            time.sleep(5)
+            state = "green"
+        elif state == "green":
+            print("Traffic light is green")
+            time.sleep(2)
+            state = "yellow"
+        elif state == "yellow":
+            print("Traffic light is yellow")
+            time.sleep(3)
+            state = "red"
+        
+        input("для смены состояние \n")
+
+traffic_light()
+
+#метапрограммирование
+
+expr = "3 + 5"
+result = eval(expr)
+
+print(result)
+
+code = """
+a = 10
+b = 20
+print(a + b)
+"""
+
+exec(code)
+
+def create_function():
+    code = """"
+def dynamic_function(x):
+    return x ** 2    
+"""
+    exec(code, globals())
+    return dynamic_function
+
+dynamic_func = create_function()
+
+print(dynamic_func(5))
+
+def original():
+    return "Original function"
+
+def new_version():
+    return "New version of the function"
+
+original = new_version
+
+print(original())
+
+def make_file(name, meta=None):
+    return {
+        "name": name,
+        "type": 'file',
+        "meta": meta or {}
+    }
+
+def make_dir(name, children=None, meta=None):
+    return {
+        "name": name,
+        "type": 'directory',
+        "meta": meta or {},
+        "children": children or [],
+    }
+
+tree = make_dir('workspace', [
+    make_file('main.py', meta={'language': 'Python'}),
+    make_dir('src', [
+        make_file('math.py', meta={'language': 'Python'}),
+        make_file('graphics.py', meta={'language': 'Python'}),
+    ])
+])
+
+tree = {
+    "name": "/",
+    "type": "directory",
+    "meta": {"hidden": True},
+    "children": [
+        {"name": "log.txt", "type": "file", "meta": {"size": 64}}
+    ]
+}
+
+old_file = {}
+
+import copy
+
+meta = copy.deepcopy(old_file['meta'])
+new_file = {}
+
+children = get_children(tree)
+new_children = children[:]
+new_children.reverse()
+
+
+"""
+map - применяем to_lower
+def to_lower(node):
+    deepcopy
+    """
+def to_lower(node):
+    name = node['name'].lower()
+    meta = copy.deepcopy(node["meta"])
+    if is_directory(node):
+        return {
+            "name": name,
+            "type": "directory",
+            "meta": meta,
+            "children": node['children']
+        }
+    return {
+        "name": name,
+        "type": "file",
+        "meta": meta
+    }
+
+children = get_children(tree)
+
+new_children = list(map(to_lower, children))
+
+new_children = list(filter(is_directory, get_children(tree)))
+new_tree = {
+    "name": get_name(tree),
+    "type": "directory",
+    "meta": copy.deepcopy(get_meta(tree)),
+    "children": new_children
+}
+
+def is_directory(node):
+    return node['type'] == 'directory'
+
+def is_file(node):
+    return node['type'] == 'file'
+
+def get_name(node):
+    return node.get('name')
+
+def get_meta(node):
+    return node.get('meta', {})
+
+def get_children(node):
+    if is_directory(node):
+        return node.get("children", [])
+    raise ValueError(f"{get_name(node)} не является директорией")
+
+#dfs
+"""
+начинаем с одного узла
+посещаем и отмечаем как обработанный
+смотрим н аего потомков
+выбираем одного из них и переходим к нему
+повторяем процесс - уходим глубже
+как только далее некуда, возвращаемся назад и идем по другой ветке
+повторяем пока не обойдем все структуру
+"""
+
+def dfs(node):
+    print(get_name(node))
+
+    if is_file(node):
+        return
+    
+    for child in get_children(node):
+        dfs(child)
+
+def count_files(node):
+    if is_file(node):
+            return 1
+
+    children = get_children(node)
+    
+    return sum(count_files(child) for child in children)
+
+
+def dfs_iterative(start_node):
+    stack = [start_node]
+
+    while stack:
+        node = stack.pop()
+        print(get_name(node))
+
+        if is_directory(node):
+            children = get_children(node)
+            stack.extend(reversed(children))
+
+"""
+dfs
+углубляется до конца
+использует стек 
+рекурсивен
+для глубины, вложенности
+поиск всех файлов в подкаталогах
+
+bfs
+идет по уровням
+очередь
+итеративный
+для поиска кратчайшего пути
+поиск ближайшего нужного файла
+"""
+
+def count_nodes(node):
+    if is_file(node):
+        return 1
+    
+    childern = get_children(node)
+    count = [count_nodes(child) for child in childern]
+    return sum(count) + 1
+
+def count_files(node):
+    if is_file(node):
+        return 1
+    
+    return sum(count_files(child) for child in get_children(node))
+
+def get_total_size(node):
+    if is_file(node):
+        return node['meta'].get('size', 0)
+    
+    return sum(get_total_size(child) for child in get_children(node))
+
+def collect_file_names(node):
+    if is_file(node):
+        return [get_name(node)]
+    
+    names = []
+    for child in get_children(node):
+        names += collect_file_names(child)
+    return names
+
+def capitalize(text):
+    first_char = text[0].upper()
+    rest_substring = text[1:]
+    return f'{first_char}{rest_substring}'
+
+if capitalize('hello') != 'Hello':
+    raise Exception('Функция работает неверно!')
+
+if capitalize('') != '':
+    raise Exception('Функция работает неверно!')
+
+print('Все тесты пройдены!')
+
+assert capitalize('hello') == 'Hello'
+
+assert capitalize("") == '', 'текст'
+
+"""
+uv init
+mkdir tests
+uv add --dev pytest
+uv run pytest
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.target.wheel]
+packages = ['hexlet_pytest']
+"""
+
+#example.py
+def reverse(string):
+    """
+    The function `reverse` takes a string as input and returns the string reversed.
+    
+    :param string: The `reverse` function takes a string as input and returns the reversed version of
+    that string
+    :return: the input string reversed.
+
+    >>> reverse("Hexlet")
+    'telxeH'
+
+    >>> reverse("")
+    ""
+    """
+
+    return string[::-1]
+
+#test_exmaple.py
+def test_reverse():
+    assert reverse("Hexlet") == 'telxeH'
+
+def test_reverse_for_empty_string():
+    assert reverse("") == ''
+
+"""
+uv run pytest
+uv run pytest tests/test_example.py
+uv run pytest -k test_reverse
+uv run pytest -s
+"""
+
+def test_stack():
+    stack = []
+    stack.append("one")
+    stack.append("two")
+
+    assert stack.pop() == 'two'
+    assert stack.pop() == 'one'
+
+def test_emptiness():
+    stack = []
+    assert not stack
+    stack.append('one')
+    assert bool(stack)
+
+    stack.pop()
+    assert not stack
+
+import pytest
+
+def test_pop_with_empty_stack():
+    stack = []
+    with pytest.raises(IndexError)
+        stack.pop()
+
+@pytest.fixture
+def coll():
+    return ['One', True, 3, 10, 'cat', {}, '', 10, False]
+
+def test_includes(coll):
+    assert 3 in coll
+    assert 11 not in coll
+
+def test_size(coll):
+    assert len(coll) == 9
+
+"""
+class - фикстура существует на весь класс с тестом
+module - фикстура существует на весь модуль
+package - фикструра существует весь пакет с тестами
+session - фикстура существует на всю тестовую сессию
+"""
+
+@pytest.fixture(scope="session")
+def db():
+    return connect('sqlite://memory')
+
+@pytest.fixture
+def users():
+    return [{'name': 'john'}, {'name': 'alice'}]
+
+@pytest.fixture
+def admins():
+    return [{'name': 'tom'}]
+
+@pytest.fixture
+def all_users(users, admins):
+    return users + admins
+
+@pytest.fixture(autouse=True)
+def setup_coll():
+    print('coll')
+
+#tests/conftest.py
+@pytest.fixture(scope="session")
+def db():
+    return connect('sqlite://memory')
+
+@pytest.fixture
+def user():
+    user = create_user()
+    yield user
+    delete_user()
+
+"""
+tmp_path
+capsys
+"""
+
+def hello():
+    print("hi")
+
+def test_hello_output(capsys):
+    """docstring"""
+    hello()
+    captured = capsys.readouterr()
+    assert captured.out == 'hi\n'
+
+"""if __name__ == "__main__":
+    import doctest
+    doctest.testmod()"""
+
+"""
+python example.py
+python example.py -v
+"""
+
+def check_number(number):
+    if x > 0:
+        print("Положительное число")
+    elif x < 0:
+        print("Отрицательное число")
+    else:
+        print("Ноль")
+        
+assert check_number(1) == 'Положительное число'
+#uv add pytest-cov
+#uv run pytest --cov
+'''
+name - имя модуля
+stmts - количество строк кода
+miss - количество пропущенных строк кода
+cover - процент покрытия кода тестами
+'''
+#--cov-report=term-missing
